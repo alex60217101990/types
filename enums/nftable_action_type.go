@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/alex60217101990/types/errors"
 	"gopkg.in/yaml.v3"
 )
 
@@ -71,6 +72,15 @@ func (a *NftActionType) UnmarshalJSON(data []byte) error {
 
 func (a NftActionType) Val() int {
 	return int(a)
+}
+
+// it's for using with flag package
+func (a *NftActionType) Set(val string) error {
+	if at, ok := _NftActionTypeNameToValue[val]; ok {
+		*a = at
+		return nil
+	}
+	return errors.ErrInvalidActionType(val)
 }
 
 func (a NftActionType) String() string {
