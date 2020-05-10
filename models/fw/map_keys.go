@@ -174,6 +174,6 @@ func (l LpmV6Key) String() string {
 
 type PortKey struct {
 	Type_ enums.IpType
-	proto enums.PortType
+	Proto enums.PortType
 	Port  uint32
 }
