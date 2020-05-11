@@ -78,7 +78,7 @@ func (p *PortType) Set(val string) error {
 		*p = at
 		return nil
 	}
-	return errors.ErrInvalidIPVersionType(val)
+	return errors.ErrInvalidPortType(val)
 }
 
 func (p PortType) String() string {
