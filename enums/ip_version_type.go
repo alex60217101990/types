@@ -74,6 +74,10 @@ func (ip IpType) Val() int32 {
 
 // it's for using with flag package
 func (ip *IpType) Set(val string) error {
+	if ip == nil {
+		var defaultType IpType
+		ip = &defaultType
+	}
 	if at, ok := _IpTypeNameToValue[val]; ok {
 		*ip = at
 		return nil

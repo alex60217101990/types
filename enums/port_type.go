@@ -74,6 +74,10 @@ func (p PortType) Val() int32 {
 
 // it's for using with flag package
 func (p *PortType) Set(val string) error {
+	if p == nil {
+		var defaultType PortType
+		p = &defaultType
+	}
 	if at, ok := _PortTypeNameToValue[val]; ok {
 		*p = at
 		return nil

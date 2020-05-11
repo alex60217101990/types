@@ -8,6 +8,7 @@ import (
 
 	"github.com/alex60217101990/types/consts"
 	"github.com/alex60217101990/types/enums"
+	"github.com/alex60217101990/types/errors"
 )
 
 type LpmV4Key struct {
@@ -173,7 +174,36 @@ func (l LpmV6Key) String() string {
 }
 
 type PortKey struct {
-	Type  enums.IpType
-	Proto enums.PortType
-	Port  uint32
+	Type  enums.IpType   `yaml:"type" json:"type"`
+	Proto enums.PortType `yaml:"proto" json:"proto"`
+	Port  uint32         `yaml:"port" json:"port"`
+}
+
+func (p *PortKey) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	type alias struct {
+		Type  string `yaml:"type" json:"type"`
+		Proto string `yaml:"proto" json:"proto"`
+		Port  uint32 `yaml:"port" json:"port"`
+	}
+
+	var tmp alias
+	if err := unmarshal(&tmp); err != nil {
+		return err
+	}
+
+	if p == nil {
+		p = &PortKey{}
+	}
+
+	err := p.Type.Set(tmp.Type)
+	if err != nil {
+		return errors.ErrParseEnumYamlField(tmp.Type, p.Type, err)
+	}
+	err = p.Proto.Set(tmp.Proto)
+	if err != nil {
+		return errors.ErrParseEnumYamlField(tmp.Proto, p.Proto, err)
+	}
+	p.Port = tmp.Port
+
+	return nil
 }
