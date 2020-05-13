@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/alex60217101990/goebpf/cgotypes"
 	"github.com/alex60217101990/types/enums"
 	"github.com/alex60217101990/types/helpers"
-	"github.com/alex60217101990/types/models/fw"
 	"gopkg.in/yaml.v2"
 )
 
@@ -17,12 +17,12 @@ type Configs struct {
 }
 
 type Firewall struct {
-	NetIfaceName   *string      `yaml:"net_iface_name" json:"net_iface_name,omitempty"`
-	ElfFilePath    *string      `yaml:"elf_file_path" json:"elf_file_path,omitempty"`
-	IPv4BlackList  []string     `yaml:"ipv4_blacklist" json:"ipv4_blacklist,omitempty"`
-	IPv6BlackList  []string     `yaml:"ipv6_blacklist" json:"ipv6_blacklist,omitempty"`
-	MacBlacklist   []string     `yaml:"mac_blacklist" json:"mac_blacklist,omitempty"`
-	PortsBlacklist []fw.PortKey `yaml:"ports_blacklist" json:"ports_blacklist,omitempty"`
+	NetIfaceName   *string            `yaml:"net_iface_name" json:"net_iface_name,omitempty"`
+	ElfFilePath    *string            `yaml:"elf_file_path" json:"elf_file_path,omitempty"`
+	IPv4BlackList  []string           `yaml:"ipv4_blacklist" json:"ipv4_blacklist,omitempty"`
+	IPv6BlackList  []string           `yaml:"ipv6_blacklist" json:"ipv6_blacklist,omitempty"`
+	MacBlacklist   []string           `yaml:"mac_blacklist" json:"mac_blacklist,omitempty"`
+	PortsBlacklist []cgotypes.PortKey `yaml:"ports_blacklist" json:"ports_blacklist,omitempty"`
 }
 
 func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
@@ -42,12 +42,8 @@ func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
 			// 		},
 			// 	),
 			// },
-			PortsBlacklist: []fw.PortKey{
-				fw.PortKey{
-					Type:  enums.V4,
-					Proto: enums.SourcePort,
-					Port:  3128,
-				},
+			PortsBlacklist: []cgotypes.PortKey{
+				cgotypes.GetPortKey(cgotypes.DestinationPort, cgotypes.TCPPort, 3128),
 			},
 		},
 	}
