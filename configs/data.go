@@ -17,12 +17,12 @@ type Configs struct {
 }
 
 type Firewall struct {
-	NetIfaceName   *string            `yaml:"net_iface_name" json:"net_iface_name,omitempty"`
-	ElfFilePath    *string            `yaml:"elf_file_path" json:"elf_file_path,omitempty"`
-	IPv4BlackList  []string           `yaml:"ipv4_blacklist" json:"ipv4_blacklist,omitempty"`
-	IPv6BlackList  []string           `yaml:"ipv6_blacklist" json:"ipv6_blacklist,omitempty"`
-	MacBlacklist   []string           `yaml:"mac_blacklist" json:"mac_blacklist,omitempty"`
-	PortsBlacklist []cgotypes.PortKey `yaml:"ports_blacklist" json:"ports_blacklist,omitempty"`
+	NetIfaceName   *string             `yaml:"net_iface_name,omitempty" json:"net_iface_name,omitempty"`
+	ElfFilePath    *string             `yaml:"elf_file_path,omitempty" json:"elf_file_path,omitempty"`
+	IPv4BlackList  []string            `yaml:"ipv4_blacklist,omitempty" json:"ipv4_blacklist,omitempty"`
+	IPv6BlackList  []string            `yaml:"ipv6_blacklist,omitempty" json:"ipv6_blacklist,omitempty"`
+	MacBlacklist   []string            `yaml:"mac_blacklist,omitempty" json:"mac_blacklist,omitempty"`
+	PortsBlacklist []*cgotypes.PortKey `yaml:"ports_blacklist,omitempty" json:"ports_blacklist,omitempty"`
 }
 
 func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
@@ -42,8 +42,9 @@ func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
 			// 		},
 			// 	),
 			// },
-			PortsBlacklist: []cgotypes.PortKey{
-				cgotypes.GetPortKey(cgotypes.DestinationPort, cgotypes.TCPPort, 3128),
+			PortsBlacklist: []*cgotypes.PortKey{
+				cgotypes.PortKeyVal(cgotypes.GetPortKey(cgotypes.DestinationPort, cgotypes.UDPPort, 8552)),
+				cgotypes.PortKeyVal(cgotypes.GetPortKey(cgotypes.DestinationPort, cgotypes.TCPPort, 3128)),
 			},
 		},
 	}
@@ -60,7 +61,7 @@ func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(file, bts, 0664)
+	return ioutil.WriteFile(file, bts, 0777 /*0664*/)
 }
 
 func ReadConfigFile(buff *Configs, format enums.FormatType, path string) (err error) {

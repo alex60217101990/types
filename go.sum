@@ -1,9 +1,7 @@
 github.com/Netflix/go-env v0.0.0-20200312172415-986dfe862277 h1:lHbOeRsg063kiE7Eo4MahXgBm47uhMWax0i1jdWPG2I=
 github.com/Netflix/go-env v0.0.0-20200312172415-986dfe862277/go.mod h1:9XMFaCeRyW7fC9XJOWQ+NdAv8VLG7ys7l3x4ozEGLUQ=
-github.com/alex60217101990/goebpf v0.0.4 h1:a/cQwCRjx+J3uos6rS/nJGeC460NfC2BkDTT7dRgSh8=
-github.com/alex60217101990/goebpf v0.0.4/go.mod h1:4Gw2OMw1kN0LnB4VISgL5nTyWBWGNclWWSZLpGUeREE=
-github.com/alex60217101990/goebpf v0.0.5 h1:natZWcVWqKWcigoITt5wdwRmG/ASCUkwayYO1uKhfZk=
-github.com/alex60217101990/goebpf v0.0.5/go.mod h1:4Gw2OMw1kN0LnB4VISgL5nTyWBWGNclWWSZLpGUeREE=
+github.com/alex60217101990/goebpf v0.0.8 h1:W8U1dUG1ndxsgyvQ4CxsgmSInyX6PeA34bh5CzDztpE=
+github.com/alex60217101990/goebpf v0.0.8/go.mod h1:4Gw2OMw1kN0LnB4VISgL5nTyWBWGNclWWSZLpGUeREE=
 github.com/alex60217101990/types v0.0.6/go.mod h1:oe/ExWAnKUulikcqRw+QbgAQMxpq3gtt7KQuO7JxIfA=
 github.com/chai2010/cgo v0.0.0-20200331151253-339eea8df62d h1:Ntwfe/tOPIS9nLN7tFQqHhcy5QwPlm1EmK8imdvNZAA=
 github.com/chai2010/cgo v0.0.0-20200331151253-339eea8df62d/go.mod h1:0Fa/AQywYvKtIKA9KEgL48kzJ8a+OG+eBVE65lxvHPU=

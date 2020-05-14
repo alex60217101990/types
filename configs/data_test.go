@@ -40,6 +40,7 @@ func TestReadConfigFile(t *testing.T) {
 				t.Fatal(err)
 				return
 			}
+			t.Logf("%#v\n", c)
 		})
 	}
 }
