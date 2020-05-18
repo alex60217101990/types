@@ -19,29 +19,33 @@ type Configs struct {
 type Firewall struct {
 	NetIfaceName   *string           `yaml:"net_iface_name,omitempty" json:"net_iface_name,omitempty"`
 	ElfFilePath    *string           `yaml:"elf_file_path,omitempty" json:"elf_file_path,omitempty"`
-	IPv4BlackList  []string          `yaml:"ipv4_blacklist,omitempty" json:"ipv4_blacklist,omitempty"`
-	IPv6BlackList  []string          `yaml:"ipv6_blacklist,omitempty" json:"ipv6_blacklist,omitempty"`
+	IPv4BlackList  []*models.IPv4Key `yaml:"ipv4_blacklist,omitempty" json:"ipv4_blacklist,omitempty"`
+	IPv6BlackList  []*models.IPv6Key `yaml:"ipv6_blacklist,omitempty" json:"ipv6_blacklist,omitempty"`
 	MacBlacklist   []string          `yaml:"mac_blacklist,omitempty" json:"mac_blacklist,omitempty"`
 	PortsBlacklist []*models.PortKey `yaml:"ports_blacklist,omitempty" json:"ports_blacklist,omitempty"`
 }
 
-func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
+func (c Configs) PrintTestConfigs(format enums.FormatType, file string) (err error) {
+	var ipv4 models.IPv4Key
+	err = ipv4.ParseFromStr("187.162.11.94")
+	if err != nil {
+		return err
+	}
+	var ipv6 models.IPv6Key
+	err = ipv6.ParseFromStr("::1")
+	if err != nil {
+		return err
+	}
 	testConf := &Configs{
 		Firewall: &Firewall{
 			NetIfaceName: helpers.String("eth0"),
 			ElfFilePath:  helpers.String("./tmp/fw.elf"),
-			IPv4BlackList: []string{
-				"187.162.11.94",
+			IPv4BlackList: []*models.IPv4Key{
+				&ipv4,
 			},
-			// PortsBlacklist: []fw.PortKeyConf{
-			// 	(*fw.PortKeyConf)(nil).ConvertFromKey(
-			// 		fw.PortKey{
-			// 			Type:  enums.V4,
-			// 			Proto: enums.SourcePort,
-			// 			Port:  3128,
-			// 		},
-			// 	),
-			// },
+			IPv6BlackList: []*models.IPv6Key{
+				&ipv6,
+			},
 			PortsBlacklist: []*models.PortKey{
 				&models.PortKey{
 					Type:  enums.DestinationPort,
@@ -68,7 +72,6 @@ func (c Configs) PrintTestConfigs(format enums.FormatType, file string) error {
 	}
 	var (
 		bts []byte
-		err error
 	)
 	switch format {
 	case enums.Json:
