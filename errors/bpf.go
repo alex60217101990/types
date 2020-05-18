@@ -8,8 +8,9 @@ import (
 )
 
 var (
-	ErrInvalidFormatType = func(val interface{}) error { return fmt.Errorf("invalid format type: %v", val) }
-	ErrInvalidPortType   = func(val interface{}) error { return fmt.Errorf("invalid port type: %v", val) }
+	ErrInvalidFormatType      = func(val interface{}) error { return fmt.Errorf("invalid format type: %v", val) }
+	ErrInvalidPortType        = func(val interface{}) error { return fmt.Errorf("invalid port type: %v", val) }
+	ErrInvalidPortKeyProtocol = func(val interface{}) error { return fmt.Errorf("invalid port key protocol type: %v", val) }
 	// ebpf loader
 	ErrBpfSystemConfigNil = errors.New("system configs not set")
 	ErrXdpMapKeyDataType  = errors.New("invalid xdp map event data type")

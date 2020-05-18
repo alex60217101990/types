@@ -41,6 +41,7 @@ func TestReadConfigFile(t *testing.T) {
 				return
 			}
 			t.Logf("%#v\n", c)
+			fmt.Printf("%#v\n", c.Firewall)
 		})
 	}
 }
