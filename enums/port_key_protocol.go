@@ -11,7 +11,7 @@ import (
 type PortKeyProtocol uint8
 
 const (
-	TCP PortKeyProtocol = (1 + iota)
+	TCP PortKeyProtocol = iota
 	UDP
 )
 
